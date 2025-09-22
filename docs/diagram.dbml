@@ -1,0 +1,78 @@
+Table users {
+  id integer [primary key]
+  username varchar [not null]
+  role varchar [not null, default: 'member']
+  password varchar [not null]
+  avatar_url text
+  created_at timestamp
+}
+
+
+
+Table categories {
+  id integer [primary key]
+  name varchar
+  created_at timestamptz
+  updated_at timestamptz
+}
+
+Table challenges {
+  id integer [primary key]
+  creator_id integer
+  category_id integer [not null]
+  name varchar
+  description text
+  start_date date
+  end_date date
+  visibility varchar
+  status varchar
+  created_at timestamptz
+  updated_at timestamptz
+}
+
+Table challenge_participations {
+  id integer
+  challenge_id integer
+  user_id integer
+  status varchar
+  joined_at timestamptz
+  total_points integer
+  created_at timestamptz
+  updated_at timestamptz
+  Indexes {
+  (challenge_id, user_id) [unique]
+  }
+}
+
+Table badges {
+  id integer [primary key]
+  code varchar
+  name varchar
+  description text
+  icon_url text
+  created_at timestamptz
+  updated_at timestamptz
+}
+
+Table user_badges {
+  id integer [primary key]
+  user_id integer
+  badge_id integer
+  challenge_id integer
+  awarded_at timestamptz
+
+  Indexes {
+    (user_id, badge_id, challenge_id) [unique]
+  }
+}
+
+
+
+Ref challenges_creator: challenges.creator_id < users.id
+Ref challenges_categorie: challenges.category_id < categories.id
+Ref participations_challenge: challenge_participations.challenge_id < challenges.id
+Ref participations_user: challenge_participations.user_id < users.id
+Ref badges_user: user_badges.user_id < users.id
+Ref badges_type: user_badges.badge_id < badges.id
+ref badge_challenge: user_badges.challenge_id < challenges.id
+
