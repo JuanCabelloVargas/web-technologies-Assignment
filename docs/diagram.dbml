@@ -1,11 +1,8 @@
-// Use DBML to define your database structure
-// Docs: https://dbml.dbdiagram.io/docs
-
-
 Table users {
   id integer [primary key]
   username varchar [not null]
   role varchar [not null, default: 'member']
+  email varchar [not null]
   password varchar [not null]
   avatar_url text
   created_at timestamp
@@ -30,6 +27,17 @@ Table challenges {
   end_date date
   visibility varchar
   status varchar
+  created_at timestamptz
+  updated_at timestamptz
+}
+
+Table challenge_comment {
+  id integer [primary key]
+  challenge_id integer [not null]
+  user_id integer [not null]
+  body text [not null]
+  edited_at timestamptz
+  deleted_at timestamptz
   created_at timestamptz
   updated_at timestamptz
 }
@@ -91,6 +99,11 @@ Table challenge_invites {
   is_accepted boolean
 }
 
+Table bookmarked_challenges {
+  id integer [primary key]
+  user_id integer [not null]
+  challenge_id integer [not null]
+}
 
 
 Ref challenges_creator: challenges.creator_id < users.id
@@ -105,3 +118,7 @@ Ref id_user_request: challenge_request.requester_id < users.id
 Ref inviter_challenge_id: challenge_invites.inviter_id < users.id
 Ref invitee_challenge_id: challenge_invites.invitee_user_id < users.id
 Ref Challenge_invites_challenge_id: challenge_invites.challenge_id < challenges.id
+Ref bookmarked_by: bookmarked_challenges.user_id < users.id
+Ref bookmarked_challenge: bookmarked_challenges.challenge_id < challenges.id
+Ref user_commented: challenge_comment.user_id < users.id
+Ref challenge_commented: challenge_comment.challenge_id < challenges.id
