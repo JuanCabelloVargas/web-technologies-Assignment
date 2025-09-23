@@ -1,3 +1,7 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
 Table users {
   id integer [primary key]
   username varchar [not null]
@@ -66,6 +70,27 @@ Table user_badges {
   }
 }
 
+Table challenge_request{
+  id integer [primary key]
+  challenge_id integer [not null]
+  requester_id integer [not null]
+  status join_request_status [not null,  default: 'pending']
+  message text
+  decided_by_id integer [not null]
+  decided_at timestamptz
+  created_at timestamptz
+}
+
+Table challenge_invites {
+  id integer [primary key]
+  challenge_id integer [not null]
+  inviter_id integer [not null]
+  invitee_user_id integer [not null]
+  accepted_at timestamptz [not null]
+  created_at timestamptz [not null]
+  is_accepted boolean
+}
+
 
 
 Ref challenges_creator: challenges.creator_id < users.id
@@ -74,5 +99,9 @@ Ref participations_challenge: challenge_participations.challenge_id < challenges
 Ref participations_user: challenge_participations.user_id < users.id
 Ref badges_user: user_badges.user_id < users.id
 Ref badges_type: user_badges.badge_id < badges.id
-ref badge_challenge: user_badges.challenge_id < challenges.id
-
+Ref badge_challenge: user_badges.challenge_id < challenges.id
+Ref id_challenge_request: challenge_request.challenge_id < challenges.id
+Ref id_user_request: challenge_request.requester_id < users.id
+Ref inviter_challenge_id: challenge_invites.inviter_id < users.id
+Ref invitee_challenge_id: challenge_invites.invitee_user_id < users.id
+Ref Challenge_invites_challenge_id: challenge_invites.challenge_id < challenges.id
