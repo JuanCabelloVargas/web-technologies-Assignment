@@ -1,6 +1,6 @@
 class CreateChallengeRequestsTable < ActiveRecord::Migration[8.0]
   def change
-    rename_table :users_tabel, :users
+    rename_table :users_tables, :users
 
     create_table :challenge_requests do |t|
       t.bigint :challenge_id, null: false
@@ -11,7 +11,7 @@ class CreateChallengeRequestsTable < ActiveRecord::Migration[8.0]
       t.datetime :decided_at
       t.timestamps
     end
-    add_index :challenge_requests, [ :challenge_id, :requester_id ], uniqueness: true
+    add_index :challenge_requests, [ :challenge_id, :requester_id ], unique: true
     add_index :challenge_requests, :status
   end
 end
