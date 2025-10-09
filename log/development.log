@@ -13,3 +13,146 @@ Migrating to CreateUsersTable (20251009191710)
   [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
   [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (36.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "web_technologies_assignment_development" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35mSQL (1.8ms)[0m  [1m[35mSET search_path TO public /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (22.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "web_technologies_assignment_test" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (35.0ms)[0m  [1m[35mCREATE DATABASE "web_technologies_assignment_development" ENCODING = 'unicode' /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (36.0ms)[0m  [1m[35mCREATE DATABASE "web_technologies_assignment_test" ENCODING = 'unicode' /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35mSQL (14.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "users_tables" CASCADE /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "users_tables" ("id" bigserial primary key, "username" character varying, "role" character varying, "email" character varying, "password" character varying, "avatar_url" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20251009191710) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-10-09 21:30:14.291929', '2025-10-09 21:30:14.291997') RETURNING "key" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'cbdbd8548599ca42d24524b1f35da9359fa44ea2', '2025-10-09 21:30:14.298331', '2025-10-09 21:30:14.298333') RETURNING "key" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35mSQL (7.7ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users_tables" CASCADE /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "users_tables" ("id" bigserial primary key, "username" character varying, "role" character varying, "email" character varying, "password" character varying, "avatar_url" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20251009191710) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-10-09 21:30:14.332783', '2025-10-09 21:30:14.332787') RETURNING "key" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.7ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2025-10-09 21:30:14.337237' WHERE "ar_internal_metadata"."key" = 'environment' /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'cbdbd8548599ca42d24524b1f35da9359fa44ea2', '2025-10-09 21:30:14.340253', '2025-10-09 21:30:14.340255') RETURNING "key" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeRequestsTable (20251009203140)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "users_tabel" RENAME TO "users" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeRequestsTable (20251009203140)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "users_table" RENAME TO "users" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeRequestsTable (20251009203140)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users_tables" RENAME TO "users" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "users_tables_pkey" RENAME TO "users_pkey" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mALTER TABLE "public"."users_tables_id_seq" RENAME TO "users_id_seq" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "challenge_requests" ("id" bigserial primary key, "challenge_id" bigint NOT NULL, "requester_id" bigint NOT NULL, "status" character varying NOT NULL, "message" text, "decided_by_id" bigint NOT NULL, "decided_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_6b17df1372"
+FOREIGN KEY ("requester_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_755f3e1d9c"
+FOREIGN KEY ("decided_by_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_requests_on_requester_id" ON "challenge_requests" ("requester_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_challenge_requests_on_decided_by_id" ON "challenge_requests" ("decided_by_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeRequestsTable (20251009203140)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users_tables" RENAME TO "users" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "users_tables_pkey" RENAME TO "users_pkey" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mALTER TABLE "public"."users_tables_id_seq" RENAME TO "users_id_seq" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "challenge_requests" ("id" bigserial primary key, "challenge_id" bigint NOT NULL, "requester_id" bigint NOT NULL, "status" character varying NOT NULL, "message" text, "decided_by_id" bigint NOT NULL, "decided_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_6b17df1372"
+FOREIGN KEY ("requester_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_755f3e1d9c"
+FOREIGN KEY ("decided_by_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_challenge_requests_on_requester_id" ON "challenge_requests" ("requester_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_requests_on_decided_by_id" ON "challenge_requests" ("decided_by_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_challenge_requests_on_challenge_id_and_requester_id" ON "challenge_requests" ("challenge_id", "requester_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_requests_on_status" ON "challenge_requests" ("status") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251009203140') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateBookmarkedChallengesTable (20251009203443)
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "bookmarked_challenges" ("id" bigserial primary key, "user_id" bigint NOT NULL, "challenge_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c35727a757"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_bookmarked_challenges_on_user_id" ON "bookmarked_challenges" ("user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bookmarked_challenges_on_challenge_id" ON "bookmarked_challenges" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_bookmarked_challenges_on_user_id_and_challenge_id" ON "bookmarked_challenges" ("user_id", "challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251009203443') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateNotificationsTable (20251009204112)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "notifications" ("id" bigserial primary key, "user_id" bigint NOT NULL, "title" character varying NOT NULL, "body" text NOT NULL, "notification_type" character varying NOT NULL, "related_type" character varying NOT NULL, "related_id" bigint NOT NULL, "is_read" boolean DEFAULT FALSE NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_b080fb4855"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_notifications_on_user_id" ON "notifications" ("user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_notifications_on_related" ON "notifications" ("related_type", "related_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_notifications_on_user_id_and_is_read" ON "notifications" ("user_id", "is_read") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_notifications_on_related_type_and_related_id" ON "notifications" ("related_type", "related_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_notifications_on_notification_type" ON "notifications" ("notification_type") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251009204112') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateUserBadgesTable (20251009204921)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "user_badges" ("id" bigserial primary key, "user_id" bigint NOT NULL, "badge_id" bigint NOT NULL, "challenge_id" bigint NOT NULL, "awarded_at" timestamp(6) DEFAULT CURRENT_TIMESTAMP NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_ff28d27c3c"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_user_badges_on_user_id" ON "user_badges" ("user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_user_badges_on_user_id_and_badge_id_and_challenge_id" ON "user_badges" ("user_id", "badge_id", "challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_user_badges_on_badge_id" ON "user_badges" ("badge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_user_badges_on_challenge_id" ON "user_badges" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251009204921') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeCommentsTable (20251009205103)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "challenge_comments" ("id" bigserial primary key, "challenge_id" bigint NOT NULL, "user_id" bigint NOT NULL, "body" text NOT NULL, "is_deleted" boolean DEFAULT FALSE NOT NULL, "edited_at" timestamp(6), "deleted_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_74fdc6af18"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_user_id" ON "challenge_comments" ("user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251009205103') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
