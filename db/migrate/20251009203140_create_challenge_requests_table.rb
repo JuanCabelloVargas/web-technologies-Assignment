@@ -3,7 +3,7 @@ class CreateChallengeRequestsTable < ActiveRecord::Migration[8.0]
     rename_table :users_tabel, :users
 
     create_table :challenge_requests do |t|
-      t.references :challenge, null: false, foreign_key: true
+      t.bigint :challenge_id, null: false
       t.references :requester, null: false, foreign_key: { to_table: :users }
       t.string :status, null: false
       t.text :message
