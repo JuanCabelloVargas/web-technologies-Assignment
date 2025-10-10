@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get "badges/index"
+  get "badges/show"
+  get "progress_logs/index"
+  get "progress_logs/show"
+  get "challenge_invites/index"
+  get "challenge_invites/show"
+  get "challenge_participations/index"
+  get "challenge_participations/show"
+  get "challenges/index"
+  get "challenges/show"
+  get "categories/index"
+  get "categories/show"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,4 +23,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :categories, only: [:index, :show]
+  resources :challenges, only: [:index, :show]
+  resources :challenge_participations, only: [:index, :show]
+  resources :challenge_invites, only: [:index, :show]
+  resources :progress_logs, only: [:index, :show]
+  resources :badges, only: [:index, :show]
 end

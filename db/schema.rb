@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_09_205103) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_10_022951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "badges", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.text "icon_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bookmarked_challenges", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -22,6 +31,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_205103) do
     t.index ["challenge_id"], name: "index_bookmarked_challenges_on_challenge_id"
     t.index ["user_id", "challenge_id"], name: "index_bookmarked_challenges_on_user_id_and_challenge_id", unique: true
     t.index ["user_id"], name: "index_bookmarked_challenges_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "challenge_comments", force: :cascade do |t|
@@ -34,6 +49,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_205103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_challenge_comments_on_user_id"
+  end
+
+  create_table "challenge_invites", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "accepted_at", null: false
+    t.boolean "is_accepted", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_challenge_invites_on_challenge_id"
+    t.index ["user_id"], name: "index_challenge_invites_on_user_id"
+  end
+
+  create_table "challenge_participations", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
+    t.bigint "user_id", null: false
+    t.string "status", null: false
+    t.datetime "joined_at", null: false
+    t.bigint "total_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_challenge_participations_on_challenge_id"
+    t.index ["user_id"], name: "index_challenge_participations_on_user_id"
   end
 
   create_table "challenge_requests", force: :cascade do |t|
@@ -51,6 +89,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_205103) do
     t.index ["status"], name: "index_challenge_requests_on_status"
   end
 
+  create_table "challenges", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.string "visibility", null: false
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
@@ -66,6 +115,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_205103) do
     t.index ["related_type", "related_id"], name: "index_notifications_on_related_type_and_related_id"
     t.index ["user_id", "is_read"], name: "index_notifications_on_user_id_and_is_read"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "progress_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "challenge_id", null: false
+    t.text "description"
+    t.float "progress_value", null: false
+    t.string "unit", null: false
+    t.datetime "logged_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_progress_logs_on_challenge_id"
+    t.index ["user_id"], name: "index_progress_logs_on_user_id"
   end
 
   create_table "user_badges", force: :cascade do |t|
@@ -93,8 +155,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_205103) do
 
   add_foreign_key "bookmarked_challenges", "users"
   add_foreign_key "challenge_comments", "users"
+  add_foreign_key "challenge_invites", "challenges"
+  add_foreign_key "challenge_invites", "users"
+  add_foreign_key "challenge_participations", "challenges"
+  add_foreign_key "challenge_participations", "users"
   add_foreign_key "challenge_requests", "users", column: "decided_by_id"
   add_foreign_key "challenge_requests", "users", column: "requester_id"
   add_foreign_key "notifications", "users"
+  add_foreign_key "progress_logs", "challenges"
+  add_foreign_key "progress_logs", "users"
   add_foreign_key "user_badges", "users"
 end
