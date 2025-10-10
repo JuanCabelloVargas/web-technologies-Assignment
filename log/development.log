@@ -1976,3 +1976,509 @@ Completed 200 OK in 167ms (Views: 70.6ms | ActiveRecord: 20.8ms (1 query, 0 cach
   [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
   [1m[36mCategorie Create (3.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Lifestyle', '2025-10-10 19:32:58.107942', '2025-10-10 19:32:58.107942') RETURNING "id" /*application='WebTechnologiesAssignment'*/[0m
   [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallenges (20251010010000)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "challenges" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text NOT NULL, "start_date" timestamp(6) NOT NULL, "end_date" timestamp(6) NOT NULL, "visibility" character varying NOT NULL, "status" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010010000') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateCategories (20251010015517)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010015517') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeParticipations (20251010020519)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "challenge_participations" ("id" bigserial primary key, "challenge_id" bigint NOT NULL, "user_id" bigint NOT NULL, "status" character varying NOT NULL, "joined_at" timestamp(6) NOT NULL, "total_points" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_04fd5970b0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+, CONSTRAINT "fk_rails_62193d7b9c"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenge_participations_on_challenge_id" ON "challenge_participations" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_participations_on_user_id" ON "challenge_participations" ("user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010020519') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateChallengeInvites (20251010021756)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "challenge_invites" ("id" bigserial primary key, "challenge_id" bigint NOT NULL, "inviter_id_id" bigint NOT NULL, "inviter_user_id_id" bigint NOT NULL, "accepted_at" timestamp(6) NOT NULL, "is_accepted" boolean NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e932f051ac"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+, CONSTRAINT "fk_rails_9d7bb23a5a"
+FOREIGN KEY ("inviter_id_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_69947f568f"
+FOREIGN KEY ("inviter_user_id_id")
+  REFERENCES "users" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_challenge_id" ON "challenge_invites" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_inviter_id_id" ON "challenge_invites" ("inviter_id_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_inviter_user_id_id" ON "challenge_invites" ("inviter_user_id_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010021756') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateProgressLogs (20251010022343)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "progress_logs" ("id" bigserial primary key, "user_id" bigint NOT NULL, "challenge_id" bigint NOT NULL, "description" text, "progress_value" float NOT NULL, "unit" character varying NOT NULL, "logged_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_be6ca347c8"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_5c922ce019"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_progress_logs_on_user_id" ON "progress_logs" ("user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_progress_logs_on_challenge_id" ON "progress_logs" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010022343') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+Migrating to CreateBadges (20251010022951)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "badges" ("id" bigserial primary key, "code" character varying NOT NULL, "name" character varying NOT NULL, "description" text NOT NULL, "icon_url" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010022951') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_inviter_id" ON "challenge_invites" ("inviter_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_invitee_user_id" ON "challenge_invites" ("invitee_user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_invitee_user_id" ON "challenge_invites" ("invitee_user_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e36241d08c"
+FOREIGN KEY ("inviter_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_9eed9a3df0"
+FOREIGN KEY ("invitee_user_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e932f051ac"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_invites_on_inviter_id" ON "challenge_invites" ("inviter_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e36241d08c"
+FOREIGN KEY ("inviter_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_9eed9a3df0"
+FOREIGN KEY ("invitee_user_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e932f051ac"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e36241d08c"
+FOREIGN KEY ("inviter_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_9eed9a3df0"
+FOREIGN KEY ("invitee_user_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e932f051ac"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "challenge_invites" ADD CONSTRAINT "fk_rails_e932f051ac"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WebTechnologiesAssignment'*/[0m
+Migrating to UpdateForeignKeysAndColumns (20251010210147)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "challenges" ADD "creator_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_creator_id" ON "challenges" ("creator_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_c04119a938"
+FOREIGN KEY ("creator_id")
+  REFERENCES "users" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenges" ADD "category_id" bigint NOT NULL /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_challenges_on_category_id" ON "challenges" ("category_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "challenges" ADD CONSTRAINT "fk_rails_8f7ddf517b"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "bookmarked_challenges" ADD CONSTRAINT "fk_rails_9c87b3c0f0"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_challenge_comments_on_challenge_id" ON "challenge_comments" ("challenge_id") /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "challenge_comments" ADD CONSTRAINT "fk_rails_19f5c9c198"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "challenge_requests" ADD CONSTRAINT "fk_rails_20edde03c4"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_d9eb7b26df"
+FOREIGN KEY ("badge_id")
+  REFERENCES "badges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "user_badges" ADD CONSTRAINT "fk_rails_85b2cb8f21"
+FOREIGN KEY ("challenge_id")
+  REFERENCES "challenges" ("id")
+ /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_id_id" TO "inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_id_id" RENAME TO "index_challenge_invites_on_inviter_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "challenge_invites" RENAME COLUMN "inviter_user_id_id" TO "invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER INDEX "index_challenge_invites_on_inviter_user_id_id" RENAME TO "index_challenge_invites_on_invitee_user_id" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251010210147') RETURNING "version" /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='WebTechnologiesAssignment'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3671329097346077790) /*application='WebTechnologiesAssignment'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WebTechnologiesAssignment'*/[0m
