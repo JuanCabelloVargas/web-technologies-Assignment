@@ -1,8 +1,11 @@
-<h1>Badges</h1>
-<ul>
-  <% @badges.each do |b| %>
-    <li>
-      <%= link_to b.name, badge_path(b) %> - Code: <%= b.code %>
-    </li>
-  <% end %>
-</ul>
+<div class="container mt-3">
+  <h1 class="mb-3 text-primary">Badges</h1>
+    <ul>
+      <% @badges.each do |b| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= link_to b.name, badge_path(b), class: "fw-bold text-decoration-none" %> 
+          <small class="text-muted">Code: <%= b.code %></small>
+        </li>
+      <% end %>
+    </ul>
+</div>

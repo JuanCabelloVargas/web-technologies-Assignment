@@ -1,5 +1,5 @@
 class ChallengesController < ApplicationController
-  before action :set_challenge, only: [ :show ]
+  before_action :set_challenge, only: [ :show ]
   def index
     @challenges = Challenge.all
   end
