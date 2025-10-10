@@ -1,10 +1,9 @@
 <div class="container mt-3">
   <h1 class="mb-3 text-primary">Badges</h1>
     <ul>
-      <% @badges.each do |b| %>
+      <% @notifications.each do |notification| %>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <%= link_to b.name, badge_path(b), class: "fw-bold text-decoration-none" %> 
-          <small class="text-muted">Code: <%= b.code %></small>
+          <%= link_to notification.title, notification_path(notification), class: "fw-bold text-decoration-none" %> 
         </li>
       <% end %>
     </ul>

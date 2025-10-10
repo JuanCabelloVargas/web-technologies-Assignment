@@ -1,5 +1,5 @@
 class ChallengeRequest < ApplicationRecord
-  belong_to :challenge
+  belongs_to :challenge
   belongs_to :requester, class_name: "User"
   belongs_to :decided_by, class_name: "User", optional: true
 
