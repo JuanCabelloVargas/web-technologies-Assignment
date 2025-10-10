@@ -1,0 +1,8 @@
+<h1>Badges</h1>
+<ul>
+  <% @badges.each do |b| %>
+    <li>
+      <%= link_to b.name, badge_path(b) %> - Code: <%= b.code %>
+    </li>
+  <% end %>
+</ul>

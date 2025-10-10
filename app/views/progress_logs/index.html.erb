@@ -1,0 +1,8 @@
+<h1>Progress Logs</h1>
+<ul>
+  <% @logs.each do |l| %>
+    <li>
+      <%= link_to "User #{l.user_id} - Challenge #{l.challenge_id}", progress_log_path(l) %> - Progress: <%= l.progress_value %> <%= l.unit %>
+    </li>
+  <% end %>
+</ul>

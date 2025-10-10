@@ -1,0 +1,8 @@
+<h1>Challenge Participations</h1>
+<ul>
+  <% @participations.each do |p| %>
+    <li>
+      <%= link_to "User #{p.user_id} in Challenge #{p.challenge_id}", challenge_participation_path(p) %> - Status: <%= p.status %>
+    </li>
+  <% end %>
+</ul>
