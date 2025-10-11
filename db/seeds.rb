@@ -103,7 +103,7 @@ ActiveRecord::Base.transaction do
   ChallengeComment.create!(challenge: c10, user: u1, body: "Anyone running at the park on Saturday?", is_deleted: false)
 
   puts "Invites…"
-   ChallengeInvite.create!(
+  ChallengeInvite.create!(
     challenge: c5,
     inviter: u1,
     invitee_user: admin,
