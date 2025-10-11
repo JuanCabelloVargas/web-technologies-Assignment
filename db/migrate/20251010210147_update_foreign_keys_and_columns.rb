@@ -13,7 +13,7 @@ class UpdateForeignKeysAndColumns < ActiveRecord::Migration[8.0]
     add_foreign_key :user_badges, :badges,     column: :badge_id
     add_foreign_key :user_badges, :challenges, column: :challenge_id
 
-    rename_column :challenge_invites, :inviter_id_id,       :inviter_id
-    rename_column :challenge_invites, :inviter_user_id_id,  :invitee_user_id
+    #rename_column :challenge_invites, :inviter_id_id,       :inviter_id
+    #rename_column :challenge_invites, :inviter_user_id_id,  :invitee_user_id
   end
 end

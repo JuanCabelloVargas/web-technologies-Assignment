@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_10_210147) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_10_233650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -54,15 +54,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_10_210147) do
 
   create_table "challenge_invites", force: :cascade do |t|
     t.bigint "challenge_id", null: false
-    t.bigint "inviter_id", null: false
-    t.bigint "invitee_user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "accepted_at", null: false
     t.boolean "is_accepted", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "inviter_id"
+    t.bigint "invitee_user_id"
     t.index ["challenge_id"], name: "index_challenge_invites_on_challenge_id"
-    t.index ["invitee_user_id"], name: "index_challenge_invites_on_invitee_user_id"
-    t.index ["inviter_id"], name: "index_challenge_invites_on_inviter_id"
+    t.index ["user_id"], name: "index_challenge_invites_on_user_id"
   end
 
   create_table "challenge_participations", force: :cascade do |t|
@@ -165,8 +165,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_10_210147) do
   add_foreign_key "challenge_comments", "challenges"
   add_foreign_key "challenge_comments", "users"
   add_foreign_key "challenge_invites", "challenges"
-  add_foreign_key "challenge_invites", "users", column: "invitee_user_id"
-  add_foreign_key "challenge_invites", "users", column: "inviter_id"
+  add_foreign_key "challenge_invites", "users"
   add_foreign_key "challenge_participations", "challenges"
   add_foreign_key "challenge_participations", "users"
   add_foreign_key "challenge_requests", "challenges"
