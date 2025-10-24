@@ -1,8 +1,10 @@
-<h1>Challenges</h1>
-<ul>
-  <% @challenges.each do |challenge| %>
-    <li>
-      <%= link_to challenge.name, challenge_path(challenge) %> - Status: <%= challenge.status %>
-    </li>
-  <% end %>
-</ul>
+<div class="container mt-3">  
+  <h1 class="mb-3 text-primary">Challenges</h1>
+    <ul>
+      <% @challenges.each do |challenge| %>
+        <li>
+          <%= link_to challenge.name, challenge_path(challenge) %> - Status: <%= challenge.status %>
+        </li>
+      <% end %>
+  </ul>
+</div>

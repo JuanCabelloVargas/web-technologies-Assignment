@@ -1,8 +1,10 @@
-<h1>Challenge Invites</h1>
-<ul>
-  <% @invites.each do |i| %>
-    <li>
-      <%= link_to "User #{i.user_id} invited to Challenge #{i.challenge_id}", challenge_invite_path(i) %> - Accepted: <%= i.is_accepted %>
-    </li>
-  <% end %>
-</ul>
+<div class="container mt-3">  
+  <h1 class="mb-3 text-primary">Challenge Invites</h1>
+    <ul>
+      <% @invites.each do |i| %>
+        <li>
+          <%= link_to "User #{i.user_id} invited to Challenge #{i.challenge_id}", challenge_invite_path(i) %> - Accepted: <%= i.is_accepted %>
+        </li>
+      <% end %>
+    </ul>
+</div>
