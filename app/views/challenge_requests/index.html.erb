@@ -1,0 +1,34 @@
+<div class="container mt-3">
+  <h1 class="mb-3 text-primary">Challenge Requests</h1>
+
+  <% if @challenge_requests.empty? %>
+    <p>No requests found.</p>
+  <% else %>
+    <ul class="list-group">
+      <% @challenge_requests.each do |request| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>User:</strong> <%= request.requester.username %> 
+            <strong>Challenge:</strong> <%= request.challenge.name %>
+            <strong>Status:</strong> <%= request.status.capitalize %>
+          </div>
+          <div class="d-flex">
+            <% if request.status == "pending" %>
+              <%= form_with url: approve_challenge_request_path(request), method: :patch, local: true do |f| %>
+                <%= hidden_field_tag :decided_by_id, current_user.id %>
+                <%= f.submit "Approve", class: "btn btn-success btn-sm me-1" %>
+              <% end %>
+
+              <%= form_with url: reject_challenge_request_path(request), method: :patch, local: true do |f| %>
+                <%= hidden_field_tag :decided_by_id, current_user.id %>
+                <%= f.submit "Reject", class: "btn btn-danger btn-sm me-1" %>
+              <% end %>
+            <% end %>
+
+            <%= link_to "View", challenge_request_path(request), class: "btn btn-primary btn-sm ms-1" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

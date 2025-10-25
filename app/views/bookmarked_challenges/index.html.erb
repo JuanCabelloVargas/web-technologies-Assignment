@@ -1,0 +1,30 @@
+<div class="container mt-3">
+  <h1 class="mb-3 text-primary">Bookmarked Challenges</h1>
+
+  <!-- Formulario para agregar un nuevo bookmark -->
+  <div class="mb-3">
+    <%= form_with url: toggle_bookmarked_challenges_path, method: :post, local: true do %>
+      <div class="input-group">
+        <%= select_tag :challenge_id, options_from_collection_for_select(Challenge.all, :id, :name), class: "form-select" %>
+        <button type="submit" class="btn btn-success">Add Bookmark</button>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @bookmarked_challenges.empty? %>
+    <p>You have no bookmarked challenges.</p>
+  <% else %>
+    <ul class="list-group">
+      <% @bookmarked_challenges.each do |bookmark| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>Challenge:</strong> <%= bookmark.challenge.name %>
+          </div>
+          <div>
+            <%= button_to "Remove Bookmark", toggle_bookmarked_challenges_path(challenge_id: bookmark.challenge.id), method: :post, class: "btn btn-danger btn-sm" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

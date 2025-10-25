@@ -1,14 +1,31 @@
-
 class ChallengeInvite < ApplicationRecord
   belongs_to :challenge
-  belongs_to :inviter,      class_name: "User", foreign_key: :inviter_id
-  belongs_to :invitee_user, class_name: "User", foreign_key: :invitee_user_id
+  belongs_to :inviter, class_name: "User"
+  belongs_to :invitee, class_name: "User", foreign_key: "invitee_user_id"
 
-  validates :inviter_id, :invitee_user_id, presence: true
-  validates :accepted_at, presence: true
+  validates :invitee_user_id, uniqueness: { scope: :challenge_id }
 
-  validates :is_accepted, inclusion: { in: [ true, false ] }
+  after_update :notify_on_acceptance, if: :saved_change_to_is_accepted?
 
-  validates :invitee_user_id, uniqueness: { scope: [ :inviter_id, :challenge_id ],
-                                            message: "has already been invited to this challenge" }
+  private
+
+  def notify_on_acceptance
+    if is_accepted
+      NotificationService.create_notification(
+        user: inviter,
+        notification_type: "invite",
+        title: "Invitation Accepted",
+        body: "#{invitee.username} accepted your invitation for '#{challenge.name}'.",
+        related: self
+      )
+    else
+      NotificationService.create_notification(
+        user: inviter,
+        notification_type: "invite",
+        title: "Invitation Declined",
+        body: "#{invitee.username} declined your invitation for '#{challenge.name}'.",
+        related: self
+      )
+    end
+  end
 end

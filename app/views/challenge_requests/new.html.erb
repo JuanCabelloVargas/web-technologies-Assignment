@@ -1,0 +1,27 @@
+<div class="container mt-3">
+  <h1 class="mb-3 text-primary">Create a New Challenge Request</h1>
+
+  <%= form_with(model: [@challenge, ChallengeRequest.new], local: true) do |f| %>
+    <% if @challenge_request&.errors.any? %>
+      <div class="alert alert-danger">
+        <h5>Form contains errors:</h5>
+        <ul>
+          <% @challenge_request.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= hidden_field_tag :requester_id, current_user.id %>
+
+    <div class="mb-3">
+      <label class="form-label">Challenge</label>
+      <input type="text" class="form-control" value="<%= @challenge.name %>" disabled>
+    </div>
+
+    <div class="mb-3">
+      <%= f.submit "Submit Request", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

@@ -1,10 +1,29 @@
-<div class="container mt-3">  
+<div class="container mt-3">
   <h1 class="mb-3 text-primary">Challenge Invites</h1>
-    <ul>
-      <% @invites.each do |i| %>
-        <li>
-          <%= link_to "User #{i.user_id} invited to Challenge #{i.challenge_id}", challenge_invite_path(i) %> - Accepted: <%= i.is_accepted %>
+
+  <% if @invites.empty? %>
+    <p>No invites found.</p>
+  <% else %>
+    <ul class="list-group">
+      <% @invites.each do |invite| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>Inviter:</strong> <%= invite.inviter.username %>
+            <strong>Invitee:</strong> <%= invite.invitee.username %>
+            <strong>Challenge:</strong> <%= invite.challenge.name %>
+            <strong>Accepted:</strong> <%= invite.is_accepted ? "Yes" : "No" %>
+          </div>
+          <div class="d-flex">
+            <% if invite.accepted_at.nil? %>
+              <%= button_to "Accept", accept_challenge_invite_path(invite), method: :patch, class: "btn btn-success btn-sm me-1" %>
+              <%= button_to "Decline", decline_challenge_invite_path(invite), method: :patch, class: "btn btn-danger btn-sm me-1" %>
+            <% end %>
+
+
+            <%= link_to "View", challenge_invite_path(invite), class: "btn btn-primary btn-sm ms-1" %>
+          </div>
         </li>
       <% end %>
     </ul>
+  <% end %>
 </div>

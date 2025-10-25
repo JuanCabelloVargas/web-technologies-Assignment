@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_10_233650) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_25_064646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -54,8 +54,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_10_233650) do
 
   create_table "challenge_invites", force: :cascade do |t|
     t.bigint "challenge_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "accepted_at", null: false
+    t.bigint "user_id"
+    t.datetime "accepted_at"
     t.boolean "is_accepted", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -82,7 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_10_233650) do
     t.bigint "requester_id", null: false
     t.string "status", null: false
     t.text "message"
-    t.bigint "decided_by_id", null: false
+    t.bigint "decided_by_id"
     t.datetime "decided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
