@@ -1,7 +1,9 @@
-<div class="container mt-3">    
-    <h1 class="text-primary mb-3">Invite Details</h1>
-    <p>User ID: <%= @invite.user_id %></p>
-    <p>Challenge ID: <%= @invite.challenge_id %></p>
-    <p>Accepted at: <%= @invite.accepted_at %></p>
-    <p>Is Accepted: <%= @invite.is_accepted %></p>
+<div class="container mt-3">
+  <h1 class="text-primary mb-3">Invite Details</h1>
+
+  <p><strong>Inviter:</strong> <%= @invite.inviter.username %></p>
+  <p><strong>Invitee:</strong> <%= @invite.invitee.username %></p>
+  <p><strong>Challenge:</strong> <%= @invite.challenge.name %></p>
+  <p><strong>Accepted:</strong> <%= @invite.is_accepted ? "Yes" : "No" %></p>
+  <p><strong>Accepted at:</strong> <%= @invite.accepted_at&.strftime("%Y-%m-%d %H:%M") || "Not accepted yet" %></p>
 </div>

@@ -1,0 +1,7 @@
+<div class="container mt-3">
+  <h1 class="mb-3 text-primary">Bookmarked Challenge Details</h1>
+
+  <p><strong>User:</strong> <%= @bookmarked_challenge.user.username %></p>
+  <p><strong>Challenge:</strong> <%= @bookmarked_challenge.challenge.name %></p>
+  <p><strong>Bookmarked at:</strong> <%= @bookmarked_challenge.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+</div>

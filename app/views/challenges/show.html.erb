@@ -1,7 +1,38 @@
 <div class="container mt-3">    
-    <h1 class="text-primary mb-3">><%= @challenge.name %></h1>
-    <p>Description: <%= @challenge.description %></p>
-    <p>Start: <%= @challenge.start_date %> | End: <%= @challenge.end_date %></p>
-    <p>Visibility: <%= @challenge.visibility %></p>
-    <p>Status: <%= @challenge.status %></p>
+  <h1 class="text-primary mb-3"><%= @challenge.name %></h1>
+  <p>Description: <%= @challenge.description %></p>
+  <p>Start: <%= @challenge.start_date %> | End: <%= @challenge.end_date %></p>
+  <p>Visibility: <%= @challenge.visibility %></p>
+  <p>Status: <%= @challenge.status %></p>
+
+  <!-- Botón para solicitar el challenge -->
+  <div class="mt-3">
+    <% unless ChallengeRequest.exists?(challenge: @challenge, requester: current_user) %>
+      <%= form_with url: challenge_challenge_requests_path(@challenge), method: :post, local: true do %>
+        <%= submit_tag "Request Challenge", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <p class="text-muted">You have already requested this challenge.</p>
+    <% end %>
+  </div>
+
+  <!-- Lista de requests del usuario actual para este challenge -->
+  <div class="mt-4">
+    <h4>Your Requests</h4>
+    <% requests = ChallengeRequest.where(challenge: @challenge, requester: current_user) %>
+    <% if requests.any? %>
+      <ul class="list-group">
+        <% requests.each do |req| %>
+          <li class="list-group-item">
+            Status: <strong><%= req.status.capitalize %></strong>
+            <% if req.decided_by %>
+              | Decided by: <%= req.decided_by.username %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">No requests yet.</p>
+    <% end %>
+  </div>
 </div>
