@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+
   has_many :bookmarked_challenges, dependent: :destroy
   has_many :challenge_comments, dependent: :destroy
   has_many :challenge_participations, dependent: :destroy
