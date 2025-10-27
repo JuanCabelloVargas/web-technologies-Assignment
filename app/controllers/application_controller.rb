@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   def current_user
-    User.find(18)  # reemplaza 18 con un ID válido de tu base de datos
+    # User.find(18)  # reemplaza 18 con un ID válido de tu base de datos
   end
 
   rescue_from CanCan::AccessDenied do |exception|
