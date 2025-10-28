@@ -86,17 +86,26 @@
               <span class="navbar-text me-2">
                 <%= current_user.display_name %> (<%= current_user.role %>)
               </span>
-              <%= link_to "Edit profile", edit_user_registration_path, class: "btn btn-outline-secondary btn-sm" %>
-              <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-danger btn-sm" %>
+
+              <%= button_to "Log out",
+                            destroy_user_session_path,
+                            method: :delete,
+                            data: { turbo: false },
+                            class: "btn btn-danger btn-sm" %>
+
             <% else %>
-              <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-sm" %>
-              <%= link_to "Log in", new_user_session_path, class: "btn btn-secondary btn-sm" %>
+              <%= link_to "Sign up",
+                          new_user_registration_path,
+                          class: "btn btn-primary btn-sm" %>
+
+              <%= link_to "Log in",
+                          new_user_session_path,
+                          class: "btn btn-secondary btn-sm" %>
             <% end %>
           </div>
         </div>
       </div>
     </nav>
-
     <%= yield %>
   </body>
 </html>
