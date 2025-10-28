@@ -3,7 +3,9 @@ class UserBadge < ApplicationRecord
   belongs_to :badge
   belongs_to :challenge, optional: true
 
-  validates :user_id, uniqueness: true
+  validates :user_id, :badge_id, :challenge_id, presence: true
+  validates :badge_id, uniqueness: { scope: [ :user_id, :challenge_id ], message: "alreaady awarded for this challenge" }
+
   after_create :notify_award
 
   private

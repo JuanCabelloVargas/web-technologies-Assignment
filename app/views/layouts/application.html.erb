@@ -23,6 +23,89 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg mb-3 border-bottom border-secondary">
+      <div class="container-fluid">
+        <%= link_to "ChallengeHub", root_path, class: "navbar-brand" %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="mainNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <%= link_to "Categories", categories_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Challenges", challenges_path, class: "nav-link" %>
+            </li>
+
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "Bookmarks", bookmarked_challenges_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Participations", challenge_participations_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Progress", progress_logs_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Badges", badges_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Requests", challenge_requests_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Invites", challenge_invites_path, class: "nav-link" %>
+              </li>
+
+              <li class="nav-item">
+                <% unread = current_user.notifications.where(is_read: false).count %>
+                <%= link_to notifications_path, class: "nav-link position-relative" do %>
+                  Notifications
+                  <% if unread.positive? %>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      <%= unread %>
+                      <span class="visually-hidden">unread notifications</span>
+                    </span>
+                  <% end %>
+                <% end %>
+              </li>
+
+              <% if can? :manage, User %>
+                <li class="nav-item">
+                  <%= link_to "Users", users_path, class: "nav-link" %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+
+          <div class="d-flex gap-2 align-items-center">
+            <% if user_signed_in? %>
+              <span class="navbar-text me-2">
+                <%= current_user.display_name %> (<%= current_user.role %>)
+              </span>
+
+              <%= button_to "Log out",
+                            destroy_user_session_path,
+                            method: :delete,
+                            data: { turbo: false },
+                            class: "btn btn-danger btn-sm" %>
+
+            <% else %>
+              <%= link_to "Sign up",
+                          new_user_registration_path,
+                          class: "btn btn-primary btn-sm" %>
+
+              <%= link_to "Log in",
+                          new_user_session_path,
+                          class: "btn btn-secondary btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

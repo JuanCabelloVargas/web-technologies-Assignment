@@ -8,4 +8,4 @@
 
 ### Entities Diagram:
 
-![diagram](docs/images/diagram.png)
+![diagram](docs/images/diagram.jpeg)
