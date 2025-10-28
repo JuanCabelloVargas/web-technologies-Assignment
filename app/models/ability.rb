@@ -18,6 +18,14 @@ class Ability
         can [ :update, :destroy ], Challengecomment, user_id: user.id
         can [ :index, :create, :destroy, :toggle ], BookmarkedChallenge, user_id: user.id
         can :mark_as_read, Notification, user_id: user.id
+
+        can :destroy, UserBadge, user_id: user.id
+        can :read, Badge
+        can :read, UserBadge, user_id: user.id
+        can :create, UserBadge do |userbadge|
+          userbadge.user_id == user.id
+        end
+
       end
     end
   end
