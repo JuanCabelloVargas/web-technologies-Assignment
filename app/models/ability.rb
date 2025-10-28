@@ -20,7 +20,6 @@ class Ability
         can :mark_as_read, Notification, user_id: user.id
 
         can :destroy, UserBadge, user_id: user.id
-        can :read, Badge
         can :read, UserBadge, user_id: user.id
         can :create, UserBadge do |userbadge|
           userbadge.user_id == user.id
