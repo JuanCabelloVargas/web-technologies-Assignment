@@ -1,9 +1,7 @@
 class Category < ApplicationRecord
   has_many :challenges, dependent: :nullify
 
-  before_validations :normalize_name
-
-
+  before_validation :normalize_name
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 80 }
 
