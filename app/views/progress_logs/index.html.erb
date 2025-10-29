@@ -1,10 +1,11 @@
-<div class="container mt-3">  
-  <h1 class="mb-3 text-primary">Progress Logs</h1>
-    <ul>
-      <% @logs.each do |l| %>
-        <li>
-          <%= link_to "User #{l.user_id} - Challenge #{l.challenge_id}", progress_log_path(l) %> - Progress: <%= l.progress_value %> <%= l.unit %>
-        </li>
-      <% end %>
-  </ul>
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="text-primary mb-0">Progress for <%= @challenge.name %></h1>
+    <%= link_to "Back to challenge", challenge_path(@challenge), class: "btn btn-outline-secondary" %>
+  </div>
+  <%= render partial: "progress_logs/section",
+             locals: { challenge: @challenge,
+                       progress_logs: @progress_logs,
+                       progress_log: @progress_log,
+                       can_log_progress: @can_log_progress } %>
 </div>

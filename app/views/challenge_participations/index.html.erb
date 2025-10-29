@@ -1,10 +1,7 @@
-<div class="container mt-3">  
-  <h1 class="mb-3 text-primary">Challenge Participations</h1>
-    <ul>
-      <% @participations.each do |p| %>
-        <li>
-          <%= link_to "User #{p.user_id} in Challenge #{p.challenge_id}", challenge_participation_path(p) %> - Status: <%= p.status %>
-        </li>
-      <% end %>
-    </ul>
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="text-primary mb-0">Participants for <%= @challenge.name %></h1>
+    <%= link_to "Back to challenge", challenge_path(@challenge), class: "btn btn-outline-secondary" %>
+  </div>
+  <%= render partial: "challenge_participations/list", locals: { participations: @participations, challenge: @challenge } %>
 </div>

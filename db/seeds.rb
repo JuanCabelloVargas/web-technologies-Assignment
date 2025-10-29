@@ -25,15 +25,52 @@ ActiveRecord::Base.transaction do
   Badge.delete_all
   User.delete_all
 
-  admin_email = "admin@example.com"
-  admin_username = "admin"
+  admin = User.create!(
+    username: "admin",
+    email: "admin@example.com",
+    role: :admin,
+    password: "Admin123!",
+    password_confirmation: "Admin123!"
+  )
 
-  admin = User.find_or_initialize_by(email: admin_email)
+  creator = User.create!(
+    username: "coach_nzo",
+    email: "coach@challengehub.test",
+    role: :creator,
+    password: "Creator123!",
+    password_confirmation: "Creator123!"
+  )
 
-  admin.username = admin_username
-  admin.role = :admin
-  admin.password = "Admin123!"
-  admin.password_confirmation = "Admin123!"
+  member = User.create!(
+    username: "nzo_member",
+    email: "nzo@challengehub.test",
+    role: :user,
+    password: "Member123!",
+    password_confirmation: "Member123!"
+  )
 
-  admin.save!
+  runner_category   = Category.create!(name: "Running")
+  strength_category = Category.create!(name: "Strength Training")
+
+  Challenge.create!(
+    name: "Sunrise 5K Challenge",
+    description: "Log a 5K run every morning for the next week.",
+    start_date: 1.day.from_now.beginning_of_day,
+    end_date: 1.week.from_now.end_of_day,
+    visibility: "public",
+    status: "active",
+    creator: creator,
+    category: runner_category
+  )
+
+  Challenge.create!(
+    name: "Strength Circuit Sprint",
+    description: "Complete three strength circuits on alternating days.",
+    start_date: 2.days.from_now.beginning_of_day,
+    end_date: 10.days.from_now.end_of_day,
+    visibility: "private",
+    status: "upcoming",
+    creator: creator,
+    category: strength_category
+  )
 end
