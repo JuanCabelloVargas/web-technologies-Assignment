@@ -1,0 +1,59 @@
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Recent entries</h5>
+        <% if progress_logs.any? %>
+          <ul class="list-group list-group-flush">
+            <% progress_logs.each do |log| %>
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between flex-wrap gap-2 mb-1">
+                  <strong><%= log.user.username %></strong>
+                  <span class="badge bg-light text-dark">
+                    <%= log.progress_value %> <%= log.unit %>
+                  </span>
+                </div>
+                <div class="small text-muted mb-2">
+                  Logged on <%= l(log.logged_at, format: :short) %>
+                </div>
+                <% if log.description.present? %>
+                  <p class="mb-2"><%= simple_format(log.description) %></p>
+                <% end %>
+                <% if current_user && (log.user_id == current_user.id || challenge.creator_id == current_user.id) %>
+                  <div class="d-flex gap-2">
+                    <%= link_to "Editar",
+                                edit_challenge_progress_log_path(challenge, log, anchor: "progreso"),
+                                class: "btn btn-sm btn-outline-primary" %>
+                  <%= button_to "Delete",
+                                  challenge_progress_log_path(challenge, log),
+                                  method: :delete,
+                                  data: { confirm: "¿Eliminar registro?" },
+                                  class: "btn btn-sm btn-outline-danger" %>
+                  </div>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="mb-0 text-muted">No progress yet.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Registrar progreso</h5>
+        <% if can_log_progress %>
+          <%= render partial: "progress_logs/form",
+                     locals: { challenge: challenge, progress_log: progress_log } %>
+        <% else %>
+          <p class="mb-0 text-muted">
+            Join the challenge to log your progress.
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

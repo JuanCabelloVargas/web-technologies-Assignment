@@ -4,8 +4,11 @@ Rails.application.routes.draw do
 
   resources :categories, only: [ :index, :show ]
 
-  resources :challenges, only: [ :index, :show ] do
+  resources :challenges do
     resources :challenge_requests, only: [ :create ], path: "requests"
+    resources :challenge_participations, only: [ :index, :create, :destroy ]
+    resources :challenge_comments, except: [ :show ]
+    resources :progress_logs, except: [ :show ]
   end
 
   resources :challenge_requests, only: [ :index, :show ] do
@@ -34,12 +37,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :challenge_participations, only: [ :index, :show ]
-  resources :progress_logs,            only: [ :index, :show ]
   resources :badges,                   only: [ :index, :show ]
 
   resources :user_badges,        only: [ :index, :show, :create, :destroy ]
-  resources :challenge_comments, only: [ :index, :show, :create, :update, :destroy ]
 
   root "home#index"
 end
