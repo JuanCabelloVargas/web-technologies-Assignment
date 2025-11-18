@@ -10,9 +10,6 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -23,9 +20,9 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg mb-3 border-bottom border-secondary">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 border-bottom border-light shadow-sm">
       <div class="container-fluid">
-        <%= link_to "ChallengeHub", root_path, class: "navbar-brand" %>
+        <%= link_to "ChallengeHub", root_path, class: "navbar-brand fw-bold" %> 
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -61,7 +58,7 @@
                   <% if unread.positive? %>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                       <%= unread %>
-                      <span class="visually-hidden">unread notifications</span>
+                      <span class="visually-hidden">Unread notification</span>
                     </span>
                   <% end %>
                 <% end %>
@@ -81,6 +78,8 @@
                 <%= current_user.display_name %> (<%= current_user.role %>)
               </span>
 
+              <%= link_to "My account", edit_user_registration_path, class: "btn btn-outline-dark btn-sm" %>
+
               <%= button_to "Log out",
                             destroy_user_session_path,
                             method: :delete,
@@ -88,18 +87,20 @@
                             class: "btn btn-danger btn-sm" %>
 
             <% else %>
-              <%= link_to "Sign up",
+              <%= link_to "Sign Up",
                           new_user_registration_path,
-                          class: "btn btn-primary btn-sm" %>
+                          class: "btn btn-dark btn-sm" %>
 
               <%= link_to "Log in",
                           new_user_session_path,
-                          class: "btn btn-secondary btn-sm" %>
+                          class: "btn btn-outline-dark btn-sm" %>
             <% end %>
           </div>
         </div>
       </div>
     </nav>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
