@@ -1,29 +1,56 @@
-<div class="container mt-3">
-  <h1 class="mb-3 text-primary">Challenge Invites</h1>
+<div class="container my-5">
+  <div class="row justify-content-center mb-4">
+    <div class="col-12 text-center">
+      <h1 class="display-6 fw-bold text-dark">Pending Challenge Invitations</h1>
+    </div>
+  </div>
 
   <% if @invites.empty? %>
-    <p>No invites found.</p>
+    <div class="alert alert-info text-center shadow-sm mt-5" role="alert">
+      You have no pending invitations at this time.
+    </div>
   <% else %>
-    <ul class="list-group">
+    <div class="list-group shadow-sm">
       <% @invites.each do |invite| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        
+        <% is_pending = invite.accepted_at.nil? %>
+        
+        <div class="list-group-item py-3 d-flex justify-content-between align-items-center 
+             <%= 'list-group-item-action bg-light border-dark' if is_pending %>">
+          
           <div>
-            <strong>Inviter:</strong> <%= invite.inviter.username %>
-            <strong>Invitee:</strong> <%= invite.invitee.username %>
-            <strong>Challenge:</strong> <%= invite.challenge.name %>
-            <strong>Accepted:</strong> <%= invite.is_accepted ? "Yes" : "No" %>
-          </div>
-          <div class="d-flex">
-            <% if invite.accepted_at.nil? %>
-              <%= button_to "Accept", accept_challenge_invite_path(invite), method: :patch, class: "btn btn-success btn-sm me-1" %>
-              <%= button_to "Decline", decline_challenge_invite_path(invite), method: :patch, class: "btn btn-danger btn-sm me-1" %>
+            <h6 class="mb-1 fw-bold text-dark">
+              <%= invite.inviter.username %> has invited you to: 
+              <%= link_to invite.challenge.name, challenge_path(invite.challenge), class: "text-primary text-decoration-none" %>
+            </h6>
+            
+            <% if is_pending %>
+              <span class="badge bg-warning text-dark">Awaiting Response</span>
+            <% else %>
+              <span class="badge <%= invite.is_accepted ? 'bg-success' : 'bg-danger' %>">
+                <%= invite.is_accepted ? "Accepted" : "Declined" %>
+              </span>
+              <small class="text-muted ms-2">on <%= invite.accepted_at.strftime("%b %d, %Y") %></small>
             <% end %>
-
-
-            <%= link_to "View", challenge_invite_path(invite), class: "btn btn-primary btn-sm ms-1" %>
           </div>
-        </li>
+          
+          <div class="d-flex gap-2 flex-shrink-0">
+            <% if is_pending %>
+              <%= button_to "Accept", 
+                            accept_challenge_invite_path(invite), 
+                            method: :patch, 
+                            class: "btn btn-dark btn-sm" %>
+              <%= button_to "Decline", 
+                            decline_challenge_invite_path(invite), 
+                            method: :patch, 
+                            class: "btn btn-outline-danger btn-sm" %>
+            <% end %>
+            
+            <%= link_to "View Details", challenge_invite_path(invite), class: "btn btn-outline-secondary btn-sm" %>
+          </div>
+          
+        </div>
       <% end %>
-    </ul>
+    </div>
   <% end %>
 </div>
