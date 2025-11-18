@@ -1,0 +1,21 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <h1 class="display-6 fw-bold text-dark mb-4">Edit Badge: <%= @badge.name %></h1>
+      
+      <%= render 'form', badge: @badge %>
+
+      <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+        <%= link_to "← Back to Badge", badge_path(@badge), class: "btn btn-link text-dark px-0" %>
+        
+        <%= button_to "Delete Badge", 
+                      badge_path(@badge), 
+                      method: :delete, 
+                      data: { confirm: "Are you sure you want to permanently delete this badge?" },
+                      class: "btn btn-outline-danger btn-sm" %>
+      </div>
+      
+    </div>
+  </div>
+</div>
