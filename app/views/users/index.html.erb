@@ -1,11 +1,37 @@
-<div class="container mt-3">
-  <h1 class="mb-3 text-primary">Users</h1>
-    <ul>
+<div class="container my-5">
+  <div class="row justify-content-center mb-4">
+    <div class="col-12 text-center">
+      <h1 class="display-6 fw-bold text-dark">Community Members</h1>
+    </div>
+  </div>
+
+  <% if @users.empty? %>
+    <div class="alert alert-info text-center mt-5" role="alert">
+      There are no registered users yet.
+    </div>
+  <% else %>
+    <div class="list-group shadow-sm">
       <% @users.each do |user| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <%= link_to user.username, user_path(user), class: "fw-bold text-decoration-none" %> 
-          <small class="text-muted">Role:  <%= user.role %></small>
-        </li>
+        <%= link_to user_path(user), class: "list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-center" do %>
+          
+          <div class="d-flex align-items-center">
+            <div class="rounded-circle p-2 bg-light border me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+              <span class="text-secondary fw-bold small"><%= user.username.first.upcase %></span>
+            </div>
+
+            <div>
+              <h5 class="mb-0 fw-bold text-dark">
+                <%= user.username %>
+              </h5>
+              <small class="text-muted"><%= user.email %></small> 
+            </div>
+          </div>
+          
+          <span class="badge bg-secondary text-capitalize">
+            Role: <%= user.role %>
+          </span>
+        <% end %>
       <% end %>
-    </ul>
+    </div>
+  <% end %>
 </div>
