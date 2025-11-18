@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges,                   only: [ :index, :show ]
+  resources :badges
 
   resources :user_badges,        only: [ :index, :show, :create, :destroy ]
 

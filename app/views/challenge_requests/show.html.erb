@@ -1,10 +1,69 @@
-<div class="container mt-3">
-  <h1 class="text-primary mb-3">Request Details</h1>
+<div class="container my-5">
+  
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4 border-bottom pb-3">
+    <h1 class="display-6 fw-bold text-dark mb-0">Request Details</h1>
+    
+    <% if current_user && @challenge_request.challenge.creator == current_user && @challenge_request.status == "pending" %>
+      <div class="d-flex gap-2">
+        <%= button_to "✅ Approve Request",
+                      approve_challenge_request_path(@challenge_request),
+                      method: :patch,
+                      class: "btn btn-dark btn-lg" %>
+        <%= button_to "❌ Reject Request",
+                      reject_challenge_request_path(@challenge_request),
+                      method: :patch,
+                      class: "btn btn-outline-danger btn-lg" %>
+      </div>
+    <% end %>
+  </div>
 
-  <p><strong>User:</strong> <%= @challenge_request.requester.username %></p>
-  <p><strong>Challenge:</strong> <%= @challenge_request.challenge.name %></p>
-  <p><strong>Status:</strong> <%= @challenge_request.status.capitalize %></p>
-  <p><strong>Decided by:</strong> <%= @challenge_request.decided_by&.username || "Pending" %></p>
-  <p><strong>Created at:</strong> <%= @challenge_request.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-  <p><strong>Updated at:</strong> <%= @challenge_request.updated_at.strftime("%Y-%m-%d %H:%M") %></p>
+  <div class="card shadow-sm border-light mb-4">
+    <div class="card-body">
+      
+      <h5 class="card-title fw-bold text-primary mb-3">
+        Request to Join: <%= link_to @challenge_request.challenge.name, challenge_path(@challenge_request.challenge), class: "text-dark text-decoration-none" %>
+      </h5>
+      
+      <hr>
+      
+      <div class="row row-cols-md-2 g-3 small">
+        <div class="col">
+          <strong class="text-secondary">User:</strong>
+          <%= link_to @challenge_request.requester.username, user_path(@challenge_request.requester), class: "text-dark text-decoration-none" %>
+        </div>
+        
+        <div class="col">
+          <strong class="text-secondary">Status:</strong>
+          <% status_class = case @challenge_request.status
+                           when 'pending' then 'bg-warning text-dark'
+                           when 'approved' then 'bg-success'
+                           else 'bg-danger'
+                           end %>
+          <span class="badge <%= status_class %> text-capitalize"><%= @challenge_request.status %></span>
+        </div>
+        
+        <div class="col">
+          <strong class="text-secondary">Requested:</strong> 
+          <%= @challenge_request.created_at.strftime("%B %d, %Y") %>
+        </div>
+        
+        <div class="col">
+          <strong class="text-secondary">Decided by:</strong> 
+          <span class="text-dark"><%= @challenge_request.decided_by&.username || "Pending" %></span>
+        </div>
+        
+        <% if @challenge_request.message.present? %>
+          <div class="col-12 mt-3">
+            <strong class="text-secondary d-block mb-1">Requester's Message:</strong>
+            <blockquote class="blockquote bg-light p-3 rounded border-start border-3 border-primary small">
+              <p class="mb-0 fst-italic text-dark"><%= @challenge_request.message %></p>
+            </blockquote>
+          </div>
+        <% end %>
+      </div>
+      
+    </div>
+  </div>
+  
+  <%= link_to "← Back to Requests", challenge_requests_path, class: "btn btn-link text-dark px-0" %>
 </div>

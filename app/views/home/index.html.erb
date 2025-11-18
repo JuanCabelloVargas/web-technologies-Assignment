@@ -1,14 +1,78 @@
-<div class="container mt-3">
-  <h1 class="mb-3 text-primary">Model Links</h1>
-  <ul>
-    <li><%= link_to "Badges", badges_path %></li>
-    <li><%= link_to "Categories", categories_path %></li>
-    <li><%= link_to "Challenge Invites", challenge_invites_path %></li>
-    <li><%= link_to "Challenges", challenges_path %></li>
-    <li><%= link_to "Challenge Requests", challenge_requests_path %></li>
-    <li><%= link_to "Bookmarked Challenges", bookmarked_challenges_path %></li>
-    <li><%= link_to "Notifications", notifications_path %></li>
-    <li><%= link_to "User Badges", user_badges_path %></li>
-    <li><%= link_to "Users", users_path %></li>
-  </ul>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-5">
+      <% if user_signed_in? %>
+        <h1 class="display-5 text-dark fw-light">Welcome Back, <%= current_user.display_name %>!</h1>
+        <p class="lead text-muted">Look for your next challenge. </p>
+        
+        <%= link_to " Explore New Challenges", challenges_path, class: "btn btn-dark btn-lg mt-3 shadow" %>
+      <% else %>
+        <h1 class="display-5 text-dark fw-light">Challenge your fitness limits.</h1>
+        <p class="lead text-muted">Join the ChallengeHub community.</p>
+        
+        <%= link_to " Start Your Challenge Today", new_user_registration_path, class: "btn btn-dark btn-lg mt-3 shadow" %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if user_signed_in? %>
+  <hr class="my-4">
+
+  <h2 class="mb-4 text-center">Your Quick Activity</h2>
+
+  <div class="row g-4 mb-5 justify-content-center">
+    
+    <div class="col-md-4 col-sm-6">
+      <div class="card shadow-sm h-100 border-0 text-center p-3 bg-light">
+        <div class="card-body">
+          <h5 class="card-title text-success"> Earned Badges</h5>
+          <p class="display-4 fw-bold mb-3"><%= current_user.user_badges.count %></p>
+          <%= link_to "View Your Badges", user_badges_path(user_id: current_user.id), class: "btn btn-outline-success btn-sm" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="card shadow-sm h-100 border-0 text-center p-3">
+        <div class="card-body">
+          <h5 class="card-title text-primary"> Active Challenges</h5>
+          <p class="display-4 fw-bold mb-3">3</p> 
+          <%= link_to "Go to Challenges", challenges_path, class: "btn btn-primary btn-sm" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="card shadow-sm h-100 border-0 text-center p-3 bg-warning bg-opacity-10">
+        <div class="card-body">
+          <h5 class="card-title text-warning"> Notifications</h5>
+          <% unread = current_user.notifications.where(is_read: false).count %>
+          <p class="display-4 fw-bold mb-3"><%= unread %></p>
+          <%= link_to "Review Notifications", notifications_path, class: "btn btn-outline-warning btn-sm" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="my-4">
+
+  <h2 class="mb-3 text-center">Management & Quick Links</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="list-group shadow-sm">
+        <%= link_to "Bookmarked Challenges", bookmarked_challenges_path, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" %>
+        <%= link_to "Challenge Requests", challenge_requests_path, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" %>
+        <%= link_to "Pending Invites", challenge_invites_path, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" %>
+        <%= link_to "Browse Categories", categories_path, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" %>
+        
+        <% if can? :manage, User %>
+          <%= link_to "User Admin Panel", users_path, class: "list-group-item list-group-item-action list-group-item-dark d-flex justify-content-between align-items-center" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+
 </div>

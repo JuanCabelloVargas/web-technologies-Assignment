@@ -1,0 +1,44 @@
+<%# Use the local variable 'badge' passed from the edit or new view %>
+<%= form_with(model: badge, class: "card shadow-sm border-light") do |f| %>
+  <div class="card-body">
+    
+    <% if badge.errors.any? %>
+      <div class="alert alert-danger">
+        <h6 class="fw-bold">
+          <%= pluralize(badge.errors.count, "error") %> prohibited this badge from being saved:
+        </h6>
+        <ul>
+          <% badge.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= f.label :name, "Badge Name", class: "form-label fw-bold small text-muted" %>
+      <%= f.text_field :name, class: "form-control form-control-lg", required: true %>
+    </div>
+    
+    <div class="mb-3">
+      <%= f.label :code, "Unique Code", class: "form-label fw-bold small text-muted" %>
+      <%= f.text_field :code, class: "form-control", placeholder: "e.g., RUN-MASTER", required: true %>
+      <div class="form-text">A short, unique identifier for the system.</div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :description, "Description", class: "form-label fw-bold small text-muted" %>
+      <%= f.text_area :description, class: "form-control", rows: 3, required: true %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :icon_url, "Icon URL", class: "form-label fw-bold small text-muted" %>
+      <%= f.text_field :icon_url, class: "form-control", placeholder: "https://example.com/badge_icon.png" %>
+    </div>
+    
+    <div class="actions text-end">
+      <%= f.submit "Update Badge", class: "btn btn-dark btn-lg px-4" %>
+    </div>
+    
+  </div>
+<% end %>

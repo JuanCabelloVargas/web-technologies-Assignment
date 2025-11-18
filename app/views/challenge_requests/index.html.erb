@@ -1,58 +1,105 @@
-<div class="container mt-3">
-  <h1 class="mb-3 text-primary">Challenge Requests</h1>
+<div class="container my-5">
+  <div class="row justify-content-center mb-5">
+    <div class="col-12 text-center">
+      <h1 class="display-6 fw-bold text-dark">Challenge Access Requests</h1>
+    </div>
+  </div>
 
   <% if @incoming_requests.any? %>
-    <div class="mb-4">
-      <h4>Requests for your challenges</h4>
-      <ul class="list-group">
-        <% @incoming_requests.each do |request| %>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-              <div><strong>User:</strong> <%= request.requester.username %></div>
-              <div><strong>Challenge:</strong> <%= request.challenge.name %></div>
-              <div><strong>Status:</strong> <%= request.status.capitalize %></div>
-              <% if request.message.present? %>
-                <div class="small text-muted">“<%= request.message %>”</div>
-              <% end %>
+    <div class="card shadow-sm border-light mb-5">
+      <div class="card-header bg-light border-bottom-0">
+        <h4 class="fw-bold text-dark mb-0"> Requests for Your Challenges</h4>
+      </div>
+      <div class="card-body p-0">
+        <div class="list-group list-group-flush">
+          <% @incoming_requests.each do |request| %>
+            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+              
+              <div>
+                <h6 class="mb-1 fw-bold text-primary">
+                  <%= link_to request.requester.username, user_path(request.requester), class: "text-decoration-none" %> 
+                  wants to join 
+                  <%= link_to request.challenge.name, challenge_path(request.challenge), class: "text-dark text-decoration-none" %>
+                </h6>
+                
+                <% status_class = case request.status
+                                   when 'pending' then 'bg-warning'
+                                   when 'approved' then 'bg-success'
+                                   else 'bg-danger'
+                                 end
+                %>
+                <span class="badge <%= status_class %> text-capitalize mt-1"><%= request.status %></span>
+                
+                <% if request.message.present? %>
+                  <div class="small text-muted fst-italic mt-2">“<%= request.message.truncate(80) %>”</div>
+                <% end %>
+              </div>
+              
+              <div class="d-flex gap-2 flex-shrink-0">
+                <% if request.status == "pending" %>
+                  <%= button_to "Approve",
+                                approve_challenge_request_path(request),
+                                method: :patch,
+                                class: "btn btn-dark btn-sm" %> 
+                  <%= button_to "Reject",
+                                reject_challenge_request_path(request),
+                                method: :patch,
+                                class: "btn btn-outline-danger btn-sm" %>
+                <% end %>
+                <%= link_to "View Details", challenge_request_path(request), class: "btn btn-outline-secondary btn-sm" %>
+              </div>
             </div>
-            <div class="d-flex gap-2">
-              <% if request.status == "pending" %>
-                <%= button_to "Approve",
-                              approve_challenge_request_path(request),
-                              method: :patch,
-                              class: "btn btn-success btn-sm" %>
-                <%= button_to "Reject",
-                              reject_challenge_request_path(request),
-                              method: :patch,
-                              class: "btn btn-danger btn-sm" %>
-              <% end %>
-              <%= link_to "View", challenge_request_path(request), class: "btn btn-outline-secondary btn-sm" %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+     <div class="alert alert-info text-center shadow-sm mb-5">
+      You have no <strong>pending</strong> requests for your challenges.
     </div>
   <% end %>
 
-  <div>
-    <h4>Your requests</h4>
+
+  <div class="card shadow-sm border-light">
+    <div class="card-header bg-light border-bottom-0">
+      <h4 class="fw-bold text-dark mb-0">Your Sent Requests</h4>
+    </div>
+    
     <% if @outgoing_requests.any? %>
-      <ul class="list-group">
-        <% @outgoing_requests.each do |request| %>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-              <div><strong>Challenge:</strong> <%= request.challenge.name %></div>
-              <div><strong>Status:</strong> <%= request.status.capitalize %></div>
-              <% if request.message.present? %>
-                <div class="small text-muted">“<%= request.message %>”</div>
-              <% end %>
+      <div class="card-body p-0">
+        <div class="list-group list-group-flush">
+          <% @outgoing_requests.each do |request| %>
+            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+              
+              <div>
+                <h6 class="mb-1 fw-bold">
+                  Request for: <%= link_to request.challenge.name, challenge_path(request.challenge), class: "text-dark text-decoration-none" %>
+                </h6>
+                
+                <% status_class = case request.status
+                                   when 'pending' then 'bg-warning'
+                                   when 'approved' then 'bg-success'
+                                   else 'bg-danger'
+                                 end
+                %>
+                <span class="badge <%= status_class %> text-capitalize mt-1"><%= request.status %></span>
+                
+                <% if request.message.present? %>
+                  <div class="small text-muted fst-italic mt-2">“<%= request.message.truncate(80) %>”</div>
+                <% end %>
+              </div>
+              
+              <div class="flex-shrink-0">
+                <%= link_to "View Details", challenge_request_path(request), class: "btn btn-outline-secondary btn-sm" %>
+              </div>
             </div>
-            <%= link_to "View", challenge_request_path(request), class: "btn btn-outline-secondary btn-sm" %>
-          </li>
-        <% end %>
-      </ul>
+          <% end %>
+        </div>
+      </div>
     <% else %>
-      <p class="text-muted">You have not sent any requests.</p>
+      <div class="card-body">
+        <p class="text-muted mb-0">You have not sent any requests to join private challenges yet.</p>
+      </div>
     <% end %>
   </div>
 </div>
