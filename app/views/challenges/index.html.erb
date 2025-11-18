@@ -1,11 +1,16 @@
 <div class="container my-5">
   
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="display-6 fw-bold text-dark mb-0">Challenges Hub</h1>
-    <% if current_user %>
-      <%= link_to "Create New Challenge", new_challenge_path, class: "btn btn-dark" %>
-    <% end %>
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <h1 class="display-6 fw-bold text-dark mb-0">Challenges Hub</h1>
+    </div>
   </div>
+
+  <% if current_user %>
+    <div class="text-end mb-4">
+      <%= link_to "➕ Create New Challenge", new_challenge_path, class: "btn btn-dark" %>
+    </div>
+  <% end %>
 
   <%= form_with url: challenges_path, method: :get, local: true, class: "card card-body mb-5 shadow-sm border-light bg-light" do |f| %>
     <h5 class="card-title mb-3 text-secondary">Filter Challenges</h5>
@@ -14,25 +19,25 @@
       <div class="col-md-4">
         <%= f.label :category_id, "Category", class: "form-label small fw-bold text-muted" %>
         <%= f.select :category_id,
-                     options_for_select([["All", nil]] + @categories.map { |c| [c.name, c.id] }, @filters[:category_id]),
-                     {},
-                     class: "form-select form-select-sm border-secondary" %>
+                      options_for_select([["All", nil]] + @categories.map { |c| [c.name, c.id] }, @filters[:category_id]),
+                      {},
+                      class: "form-select form-select-sm border-secondary" %>
       </div>
       
       <div class="col-md-4">
         <%= f.label :visibility, "Visibility", class: "form-label small fw-bold text-muted" %>
         <%= f.select :visibility,
-                     options_for_select([["All", nil]] + @visibilities.map { |v| [v.titleize, v] }, @filters[:visibility]),
-                     {},
-                     class: "form-select form-select-sm border-secondary" %>
+                      options_for_select([["All", nil]] + @visibilities.map { |v| [v.titleize, v] }, @filters[:visibility]),
+                      {},
+                      class: "form-select form-select-sm border-secondary" %>
       </div>
       
       <div class="col-md-4">
         <%= f.label :status, "Status", class: "form-label small fw-bold text-muted" %>
         <%= f.select :status,
-                     options_for_select([["All", nil]] + @statuses.map { |s| [s.titleize, s] }, @filters[:status]),
-                     {},
-                     class: "form-select form-select-sm border-secondary" %>
+                      options_for_select([["All", nil]] + @statuses.map { |s| [s.titleize, s] }, @filters[:status]),
+                      {},
+                      class: "form-select form-select-sm border-secondary" %>
       </div>
       
       <div class="col-12 d-flex gap-2 pt-3">
@@ -67,7 +72,7 @@
               </div>
               
               <div class="small text-muted mt-2">
-                 <strong>Duration: </strong> From <%= l(challenge.start_date, format: :short) %> to <%= l(challenge.end_date, format: :short) %>
+                  <strong>Duration: </strong> From <%= l(challenge.start_date, format: :short) %> to <%= l(challenge.end_date, format: :short) %>
               </div>
             </div>
             
