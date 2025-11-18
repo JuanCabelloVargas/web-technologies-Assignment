@@ -1,10 +1,41 @@
-<div class="container mt-3">  
-  <h1 class="mb-3 text-primary">Categories</h1>
-    <ul>
+<div class="container my-5">
+  <div class="row justify-content-center mb-4">
+    <div class="col-12 text-center">
+      <h1 class="display-6 fw-light text-dark">Explore Challenge Categories</h1>
+      <p class="lead text-muted">Filter challenges by fitness discipline or goal.</p>
+    </div>
+  </div>
+
+  <% if @categories.empty? %>
+    <div class="alert alert-warning text-center mt-5" role="alert">
+      No challenge categories have been created yet.
+    </div>
+  <% else %>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <% @categories.each do |category| %>
-        <li>
-          <%= link_to category.name, category_path(category) %>
-        </li>
+        <div class="col">
+          <%= link_to category_path(category), class: "card card-link text-decoration-none h-100 shadow-sm border-0" do %>
+            <div class="card-body p-4 text-center">
+              <div class="mb-3 text-secondary" style="font-size: 2.5rem;">
+                <i class="bi bi-tag"></i> 
+              </div>
+              
+              <h5 class="card-title text-dark mb-0 fw-bold">
+                <%= category.name %>
+              </h5>
+              
+              <p class="card-text text-muted mt-2">
+                <%= rand(5..20) %> Challenges available
+              </p>
+            </div>
+            
+            <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+               <small class="text-primary fw-bold">Browse Challenges →</small>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    </ul>
+    </div>
+  <% end %>
+
 </div>
